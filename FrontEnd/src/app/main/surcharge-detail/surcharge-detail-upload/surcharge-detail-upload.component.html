@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="upload">
+        <div class="btnupload">
+            <input type="file" name="myfile" id="myfile" multiple (change)="onFileSelected($event)"><br><br>
+            <button (click) = "upLoad($event)"><i class="fas fa-upload"></i>Up Load</button>
+        </div>
+        <app-surcharge-detail-list></app-surcharge-detail-list>
+        <div class="grbtnsave">
+            <button class="btnerror" (click) = "test()">Export Error List</button>
+            <button class="btnsave"><i class="far fa-plus-square"></i>Save</button>
+        </div>
+
+    </div>
+    <div class="changesurcharge">
+        <webcam [height]="232" [width]="232" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+            *ngIf="listSurchageService.showWebcam" [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+            [videoOptions]="videoOptions" (cameraSwitched)="cameraWasSwitched($event)"
+            (initError)="handleInitError($event)"></webcam>
+
+        <form class="sur">
+            <label for="surcharge">Surcharge <span>(*)</span></label><br>
+            <select id="surcharge" (change)="chooseSurcharge()">
+                <option value="" disabled selected>{{this.listSurchageService.surcharge}}</option>
+                <option *ngFor="let sur of listSurchageService.listSurchage" [ngValue]="sur.chargeName_VN">
+                    {{sur.chargeName_VN}}</option>
+                <!-- <option value="Phicauduong">Phí cầu đường</option>
+                <option value="Phitangbo">Phí tăng bo</option>
+                <option value="Phivesinhcont">Phí vệ sinh cont</option> -->
+            </select>
+        </form>
+        <button class="btncamera" (click) = "triggerSnapshot()"><i class="fas fa-camera-retro"></i></button>
+
+    </div>
+</div>
